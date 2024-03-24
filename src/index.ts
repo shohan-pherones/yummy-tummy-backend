@@ -3,6 +3,7 @@ import "dotenv/config";
 import express, { Application, Request, Response } from "express";
 import { connectDb } from "./config/db.config";
 import myUserRoute from "./routes/user.route";
+import { connectCloudinary } from "./config/cloudinary.config";
 
 const app: Application = express();
 
@@ -16,6 +17,7 @@ app.get("/health", async (req: Request, res: Response) => {
 app.use("/api/my/user", myUserRoute);
 
 connectDb();
+connectCloudinary();
 
 const port = process.env.PORT || 8080;
 
