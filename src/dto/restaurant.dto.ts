@@ -16,11 +16,7 @@ export const validateMyRestaurantRequest = [
     .withMessage("Cusines must be an array")
     .notEmpty()
     .withMessage("Cuisnes array cannot be empty"),
-  body("menuItems")
-    .isArray()
-    .withMessage("Menu items must be an array")
-    .notEmpty()
-    .withMessage("Menu items array cannot be empty"),
+  body("menuItems").isArray().withMessage("Menu items must be an array"),
   body("menuItems.*.name").notEmpty().withMessage("Menu item name is required"),
   body("menuItems.*.price")
     .isFloat({ min: 0 })
