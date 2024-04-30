@@ -5,6 +5,7 @@ import { connectCloudinary } from "./config/cloudinary.config";
 import { connectDb } from "./config/db.config";
 import myRestaurantRoute from "./routes/restaurant.route";
 import myUserRoute from "./routes/user.route";
+import publicRestaurantRoute from "./routes/restaurant.public.route";
 
 const app: Application = express();
 
@@ -17,6 +18,7 @@ app.get("/health", async (req: Request, res: Response) => {
 
 app.use("/api/my/user", myUserRoute);
 app.use("/api/my/restaurant", myRestaurantRoute);
+app.use("/api/restaurant", publicRestaurantRoute);
 
 connectDb();
 connectCloudinary();
