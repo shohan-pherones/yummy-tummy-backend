@@ -51,12 +51,14 @@ export const searchRestaurant = async (req: Request, res: Response) => {
       .limit(pageSize)
       .lean();
 
+    const total = await Restaurant.countDocuments(query);
+
     res.status(200).json({
       data: restaurants,
       pagination: {
-        total: restaurants.length,
+        total,
         page,
-        pages: Math.ceil(restaurants.length / pageSize),
+        pages: Math.ceil(total / pageSize),
       },
     });
   } catch (error) {
