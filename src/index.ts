@@ -6,6 +6,7 @@ import { connectDb } from "./config/db.config";
 import myRestaurantRoute from "./routes/restaurant.route";
 import myUserRoute from "./routes/user.route";
 import publicRestaurantRoute from "./routes/restaurant.public.route";
+import orderRoutes from "./routes/order.route";
 
 const app: Application = express();
 
@@ -19,6 +20,7 @@ app.get("/health", async (req: Request, res: Response) => {
 app.use("/api/my/user", myUserRoute);
 app.use("/api/my/restaurant", myRestaurantRoute);
 app.use("/api/restaurant", publicRestaurantRoute);
+app.use("/api/order", orderRoutes);
 
 connectDb();
 connectCloudinary();
