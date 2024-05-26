@@ -4,7 +4,9 @@
   "description": "",
   "main": "./src/index.ts",
   "scripts": {
+    "start:dev": "concurrently \"npm run dev\" \"npm run stripe\"",
     "dev": "nodemon",
+    "stripe": "stripe listen --forward-to localhost:8080/api/order/checkout/webhook",
     "build": "npm install && npx tsc",
     "start": "node dist/index.js"
   },
@@ -30,6 +32,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/multer": "^1.4.11",
     "@types/node": "^20.11.27",
+    "concurrently": "^8.2.2",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.2"

@@ -10,6 +10,7 @@ import orderRoutes from "./routes/order.route";
 
 const app: Application = express();
 
+app.use("/api/order/checkout/webhook", express.raw({ type: "*/*" }));
 app.use(express.json());
 app.use(cors());
 
