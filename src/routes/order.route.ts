@@ -8,7 +8,7 @@ import {
 
 const router: Router = express.Router();
 
-router.post("/", jwtCheck, jwtParse, getMyOrders);
+router.get("/", jwtCheck, jwtParse, getMyOrders);
 router.post(
   "/checkout/create-checkout-session",
   jwtCheck,
