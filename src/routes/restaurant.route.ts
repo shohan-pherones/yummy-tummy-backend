@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import {
   createMyRestaurant,
   getMyRestaurant,
+  getMyRestaurantOrder,
   updateMyRestaurant,
 } from "../controllers/restaurant.controller";
 import { upload } from "../utils/multer.util";
@@ -10,6 +11,7 @@ import { jwtCheck, jwtParse } from "../middlewares/auth.middleware";
 
 const router: Router = express.Router();
 
+router.get("/order", jwtCheck, jwtParse, getMyRestaurantOrder);
 router.get("/", jwtCheck, jwtParse, getMyRestaurant);
 router.post(
   "/",

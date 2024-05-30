@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import Restaurant from "../models/restaurant.model";
 import { uploadImage } from "../utils/multer.util";
+import Order from "../models/order.model";
 
 export const createMyRestaurant = async (req: Request, res: Response) => {
   try {
@@ -65,6 +66,23 @@ export const updateMyRestaurant = async (req: Request, res: Response) => {
 
     await restaurant.save();
     res.status(200).send(restaurant);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+export const getMyRestaurantOrder = async (req: Request, res: Response) => {
+  try {
+    const restaurant = await Restaurant.findOne({ user: req.userId });
+
+    if (!restaurant) {
+      throw new Error("Restaurant not found");
+    }
+
+    const orders = await Order.find({ restaurant: restaurant._id });
+
+    res.status(200).json(orders);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });
