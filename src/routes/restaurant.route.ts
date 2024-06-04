@@ -4,6 +4,7 @@ import {
   getMyRestaurant,
   getMyRestaurantOrder,
   updateMyRestaurant,
+  updateOrderStatus,
 } from "../controllers/restaurant.controller";
 import { upload } from "../utils/multer.util";
 import { validateMyRestaurantRequest } from "../dto/restaurant.dto";
@@ -11,6 +12,7 @@ import { jwtCheck, jwtParse } from "../middlewares/auth.middleware";
 
 const router: Router = express.Router();
 
+router.patch("/order/:orderId/status", jwtCheck, jwtParse, updateOrderStatus);
 router.get("/order", jwtCheck, jwtParse, getMyRestaurantOrder);
 router.get("/", jwtCheck, jwtParse, getMyRestaurant);
 router.post(

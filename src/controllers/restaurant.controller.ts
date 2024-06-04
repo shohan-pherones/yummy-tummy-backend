@@ -88,3 +88,30 @@ export const getMyRestaurantOrder = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
+
+export const updateOrderStatus = async (req: Request, res: Response) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      throw new Error("Order not found");
+    }
+
+    const restuarant = await Restaurant.findById(order.restaurant);
+
+    if (restuarant?.user?._id.toString() !== req.userId) {
+      throw new Error("Forbidden");
+    }
+
+    order.status = status;
+    await order.save();
+
+    res.status(200).json(order);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
